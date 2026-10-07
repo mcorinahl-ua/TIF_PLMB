@@ -7,8 +7,6 @@
 **E-mail:** mc.hernandezl12@uniandes.edu.co
 **Consultoría original:** Febrero–Marzo 2026
 
-**Artículo y documentación vigentes:** 7 de octubre de 2026
-
 ---
 
 ## Descripción histórica de la consultoría
@@ -17,21 +15,9 @@ La consultoría original, cuya descripción se conserva aquí como antecedente, 
 
 La estrategia de identificación es un modelo de **Diferencias en Diferencias (DiD)** que compara la evolución de los avalúos catastrales entre predios dentro y fuera del área de influencia del metro, antes y después del anuncio/contratación del proyecto (2019).
 
-## Paper vigente (7 de octubre de 2026)
+## Paper
 
-`README.md` es la guía vigente. Las exportaciones `README.pdf`, `README.html`, `README.tex` y sus auxiliares corresponden a la documentación histórica de la consultoría; no describen el estado actual del artículo.
-
-El artículo estudia capitalización anticipada y heterogeneidad espacial por accesibilidad del PLMB. Usa post desde 2019, referencia 2018, `A_std`, buffers de 400 y 800 m y 1200 m adicional, efectos fijos de lote/año y errores agrupados por barrio. La muestra común estimada contiene 25.334.749 registros-año. Se conservan los atributos de cada registro en 2018; las moderaciones incluyen `post × M`.
-
-La guía de código está en [`Código/paper/README.md`](Código/paper/README.md): módulos 10–27 de Stata. Los datos y productos viven en `C:/Users/USUARIO/OneDrive - Universidad de los andes/RA Andes - TIF`. Consultar primero `Paper/estado_paper.md` y `Paper/diagnosticos_paper_2026-10-06.md`.
-
-El borrador activo es `Paper/draft_PLMB_para_Luis_Angel_2026-10-07.docx` y su comparación real con el original es `Paper/comparacion_con_LAG_2026-10-07.docx`. Mantiene la narrativa de Luis Ángel: promedio, atributos brevemente, accesibilidad estructural y otros moderadores. Hay cuatro tablas y cinco figuras en el cuerpo; CEM y los coeficientes detallados quedan en anexos. La figura antes llamada C3 ahora es la figura 4. Pre y post se muestran juntos. La discusión incorpora construcción como contexto, mayores ganancias futuras como posibilidad y captura de valor con un placeholder para Álex.
-
-Las tablas se generan desde CSV con `Paper/revision_2026-10-06/construir_texto.py`; las dos figuras nuevas se regeneran con `27_figuras_paper.do`. No requieren volver a estimar. Solo se añadió un diagnóstico continuo CEM sobre los pesos existentes; conserva una interacción positiva pero reduce el contraste de proximidad. Su lectura es específica de la población ponderada del anexo D.
-
-La descripción de cambios está en `Paper/cambios_realizados_LAG.md` y el prompt actualizado de auditoría en `Paper/prompt_revision_Claude.md`. Pendiente: documentar las capas pre-2019 que Álex está rastreando y ampliar la discusión de captura de valor. No hay un estimador de apertura de frentes pendiente ni se pretende demostrar viabilidad fiscal con estos resultados.
-
-Las dos limpiezas autorizadas están documentadas en `Paper/archivo/2026-10-06/README.md` y `Paper/archivo/2026-10-07/README.md`. Los archivos archivados son recuperables con sus hashes. Se preservan bases, cachés útiles, pesos, `.ster` y resultados finales. No se hicieron commits ni pushes.
+El código del artículo está en [`Código/paper`](Código/paper/README.md) y se corre con `00_master.do`. Los resultados quedan en `Paper/resultados` de la carpeta de OneDrive `RA Andes - TIF`. Las exportaciones `README.pdf`, `README.html` y `README.tex` son de la consultoría.
 
 ---
 
