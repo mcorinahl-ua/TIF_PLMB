@@ -16,17 +16,18 @@ Creation Date:  17 Mar 2026
 
 clear all
 set more off
+args index_only dist_dir
 
 ** Path
-global dir_0 "C:\Users\USUARIO\\"
-global dir_0 "C:\Users\proyecto\\"
+global dir_0 "C:\Users\USUARIO\"
 
 ** Data
-global dir_data "${dir_0}OneDrive - Universidad de los andes\RA Andes - TIF\Datos\\"
-global dir_raw "${dir_data}raw\\"
-global dir_proc "${dir_data}processed\\"
-global dir_outcomes "${dir_0}Documents\GitHub\TIF_PLMB\Datos\outcomes\\"
-global dir_dist "${dir_0}OneDrive - Universidad de los andes\Archivos de Alvaro Andres Casas Camargo - TIF - PLMB\1. Entregables\Entregable 2 - Modelación de escenarios fiscales y financieros\Memoria de Cálculo y Comentarios\Distancias\\"
+global dir_data "${dir_0}OneDrive - Universidad de los andes\RA Andes - TIF\Datos\"
+global dir_raw "${dir_data}raw\"
+global dir_proc "${dir_data}processed\"
+global dir_outcomes "${dir_0}Documents\GitHub\TIF_PLMB\Datos\outcomes\"
+global dir_dist "${dir_0}OneDrive - Universidad de los andes\Archivos de Alvaro Andres Casas Camargo - TIF - PLMB\1. Entregables\Entregable 2 - Modelación de escenarios fiscales y financieros\Memoria de Cálculo y Comentarios\Distancias\"
+if "`dist_dir'" != "" global dir_dist "`dist_dir'\"
 
 
 /*==================================================
@@ -37,7 +38,9 @@ global dir_dist "${dir_0}OneDrive - Universidad de los andes\Archivos de Alvaro 
 import delim "${dir_dist}Distancias_Manzanas-CBD.csv", clear
 
 ** Crear codigos String 
-cap tostring man_codigo, gen(man_codigo_str)
+capture confirm string variable man_codigo
+if _rc == 0 clonevar man_codigo_str = man_codigo
+else tostring man_codigo, gen(man_codigo_str)
 
 ** Agregar leading 0 donde no esté
 replace man_codigo_str = "00" + man_codigo_str if strlen(man_codigo_str) == 7
@@ -60,14 +63,13 @@ centile dist_cbd, centile( 5 25 50 75 95 )
 xtile dist_cbd_p = dist_cbd, nq(5)
 label define distp 1 "P0–20" 2 "P20–40" 3 "P40–60" 4 "P60–80" 5 "P80–100"
 label values dist_cbd_p distp
+keep man_codigo dist_cbd dist_cbd_p
 
 tempfile cbd
 save `cbd', replace
 
 ** Importar distancia a PLMB
-//import delim "${dir_dist}Distancias_Manzanas-TrazadoPLMB.csv", clear
-
-import delim "${dir_0}OneDrive - Universidad de los andes\ARCHIV~2\1D280~1.ENT\ENTREG~3\MEMORI~1\DISTAN~1\DISTAN~4.CSV", clear
+import delim "${dir_dist}Distancias_Manzanas-TrazadoPLMB.csv", clear
 
 ** En este archivo los códigos de manzana ya están correctos 
 cap ren total_length dist_plmb
@@ -90,6 +92,7 @@ centile dist_plmb, centile( 5 25 50 75 95 )
 xtile dist_plmb_p = dist_plmb, nq(5)
 label define distp 1 "P0–20" 2 "P20–40" 3 "P40–60" 4 "P60–80" 5 "P80–100"
 label values dist_plmb_p distp
+keep man_codigo dist_plmb dist_plmb_p
 
 tempfile plmb
 save `plmb', replace
@@ -116,21 +119,23 @@ centile dist_tm, centile( 5 25 50 75 95 )
 
 xtile dist_tm_p = dist_tm, nq(5)
 label define distp 1 "P0–20" 2 "P20–40" 3 "P40–60" 4 "P60–80" 5 "P80–100"
-label values dist_tm distp
+label values dist_tm_p distp
+keep man_codigo dist_tm dist_tm_p
 
 tempfile tm
 save `tm', replace
 
 ** Importar distancia a la Malla Vial Arterial
-// import delim "${dir_dist}Distancias_Manzanas-MallaVialArterial.csv", clear
-
-import delim "${dir_0}OneDrive - Universidad de los andes\ARCHIV~2\1D280~1.ENT\ENTREG~3\MEMORI~1\DISTAN~1\DISTAN~1.CSV", clear
+import delim "${dir_dist}Distancias_Manzanas-MallaVialArterial.csv", clear
 
 ** Crear codigos String 
-cap tostring man_codigo, gen(man_codigo_str)
+capture confirm string variable man_codigo
+if _rc == 0 clonevar man_codigo_str = man_codigo
+else tostring man_codigo, gen(man_codigo_str)
 
 ** Agregar leading 0 donde no esté
 replace man_codigo_str = "00" + man_codigo_str if strlen(man_codigo_str) == 7
+cap ren total_length total_leng
 ren (man_codigo man_codigo_str total_leng) (man_codigo_og man_codigo dist_malla)
 
 ** Revisar distribución de la variable de distancia para crear las cohortes
@@ -149,7 +154,8 @@ centile dist_malla, centile( 5 25 50 75 95 )
 
 xtile dist_malla_p = dist_malla, nq(5)
 label define distp 1 "P0–20" 2 "P20–40" 3 "P40–60" 4 "P60–80" 5 "P80–100"
-label values dist_malla distp
+label values dist_malla_p distp
+keep man_codigo dist_malla dist_malla_p
 
 tempfile malla_arterial
 save `malla_arterial', replace
@@ -213,6 +219,26 @@ foreach d of local file_list {
 
 * Verificar llave
 isid man_codigo
+
+* Índice estructural del paper: PC1 de siete distancias de red a nivel manzana.
+* Los ceros son distancias válidas; calcularlo antes de modificarlas para los inversos.
+local red dist_sitp dist_alime dist_trans dist_vart dist_vinte dist_vtron dist_vloc
+foreach var of local red {
+    assert `var' >= 0 & !missing(`var')
+    gen double a_`var' = -ln(1 + `var')
+}
+
+pca a_dist_sitp a_dist_alime a_dist_trans a_dist_vart a_dist_vinte a_dist_vtron a_dist_vloc
+predict double A_pc1 if e(sample), score
+quietly correlate A_pc1 a_dist_trans
+if r(rho) < 0 replace A_pc1 = -A_pc1
+egen double A_std = std(A_pc1)
+egen double A_rank0 = rank(A_std)
+count if !missing(A_std)
+gen double A_rank = A_rank0 / r(N)
+label var A_std "Accesibilidad estructural (PC1, estandarizada)"
+label var A_rank "Rango percentil de accesibilidad estructural"
+drop a_dist_* A_pc1 A_rank0
 
 /*================================================== 
 		3. Generar Índice de ACCESIBILIDAD DE TRANSPORTE (transport_access)
@@ -364,6 +390,7 @@ label var amenities_index "Acceso a equipamientos"
 		7. Merge manzanas a predios
 ==================================================*/
 
+* Índice I_AccB de la consultoría. Se conserva para comparar; el paper usa A_std.
 factor dist_sitp dist_alime dist_trans dist_vart dist_vinte dist_vtron dist_vloc dist_vext dist_vrura d_americas d_calle26 d_caracas d_carr10 d_jimenez d_nqscent d_nqssur , pcf
 
 rotate, kaiser
@@ -440,9 +467,12 @@ replace I_AccB=D1*WD1p+D2*WD2p+D3*WD34p+D4*WD567p
 * GUARDAR BASE DE MANZANA CON VARIABLES GENERADAS 
 * EDITAR LA LISTA DE VARIABLES SEGÚN LA NECESIDAD
 ren man_codigo mancodigo
-keep mancodigo dist_plmb economic_access* access_group ln_dist_cbd cbd_group amenities_index I_AccB
+keep mancodigo dist_plmb economic_access* access_group ln_dist_cbd cbd_group amenities_index I_AccB A_std A_rank
 
 save "${dir_proc}manzanas_access.dta", replace
+
+* Con el argumento 1, solo actualizar los índices que necesita el paper.
+if "`index_only'" == "1" exit
 
 
 use "${dir_proc}predios_proc_ai2.dta", clear
@@ -462,14 +492,14 @@ drop m_distancias
 log using "${dir_outcomes}modelos_heter.smcl", replace
 
 *---------------------------------------------------------------*
-* PCA
+* Accesibilidad estructural del paper
 *---------------------------------------------------------------*
 
 gen post = cond( year >= 2019, 1, 0)
 gen inv_dist_plmb = 1/(dist_plmb+1000)
 
 #d;
-	reghdfe ln_avaluo_real_2014 c.post##c.inv_dist_plmb##c.I_AccB, 
+	reghdfe ln_avaluo_real_2014 c.post##c.inv_dist_plmb##c.A_std,
 		a(codigo_lote year)
 		vce(cluster codigo_barrio);
 #d cr

@@ -1,5 +1,6 @@
 Datos/raw/**
 Datos/processed/**
+Datos/inflacion.xlsx
 *.dta
 *.log
 *.smcl

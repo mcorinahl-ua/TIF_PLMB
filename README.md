@@ -5,19 +5,37 @@
 
 **Autora:** Maria Corina Hernandez
 **E-mail:** mc.hernandezl12@uniandes.edu.co
-**Fecha:** Febrero–Marzo 2026
+**Consultoría original:** Febrero–Marzo 2026
+
+**Artículo y documentación vigentes:** 7 de octubre de 2026
 
 ---
 
-## Descripción del Proyecto
+## Descripción histórica de la consultoría
 
-Este repositorio contiene el código fuente para estimar el mayor valor del avalúo catastral en el área de influencia de la Primera Línea del Metro de Bogotá (PLMB). El objetivo central es evaluar la viabilidad del instrumento **Tax Increment Financing (TIF)** para financiar la extensión de la línea, utilizando un panel de datos catastrales de la UAECD (2014–2025).
+La consultoría original, cuya descripción se conserva aquí como antecedente, contiene el código fuente para estimar el mayor valor del avalúo catastral en el área de influencia de la Primera Línea del Metro de Bogotá (PLMB). El objetivo central es evaluar la viabilidad del instrumento **Tax Increment Financing (TIF)** para financiar la extensión de la línea, utilizando un panel de datos catastrales de la UAECD (2014–2025).
 
 La estrategia de identificación es un modelo de **Diferencias en Diferencias (DiD)** que compara la evolución de los avalúos catastrales entre predios dentro y fuera del área de influencia del metro, antes y después del anuncio/contratación del proyecto (2019).
 
+## Paper vigente (7 de octubre de 2026)
+
+`README.md` es la guía vigente. Las exportaciones `README.pdf`, `README.html`, `README.tex` y sus auxiliares corresponden a la documentación histórica de la consultoría; no describen el estado actual del artículo.
+
+El artículo estudia capitalización anticipada y heterogeneidad espacial por accesibilidad del PLMB. Usa post desde 2019, referencia 2018, `A_std`, buffers de 400 y 800 m y 1200 m adicional, efectos fijos de lote/año y errores agrupados por barrio. La muestra común estimada contiene 25.334.749 registros-año. Se conservan los atributos de cada registro en 2018; las moderaciones incluyen `post × M`.
+
+La guía de código está en [`Código/paper/README.md`](Código/paper/README.md): módulos 10–27 de Stata. Los datos y productos viven en `C:/Users/USUARIO/OneDrive - Universidad de los andes/RA Andes - TIF`. Consultar primero `Paper/estado_paper.md` y `Paper/diagnosticos_paper_2026-10-06.md`.
+
+El borrador activo es `Paper/draft_PLMB_para_Luis_Angel_2026-10-07.docx` y su comparación real con el original es `Paper/comparacion_con_LAG_2026-10-07.docx`. Mantiene la narrativa de Luis Ángel: promedio, atributos brevemente, accesibilidad estructural y otros moderadores. Hay cuatro tablas y cinco figuras en el cuerpo; CEM y los coeficientes detallados quedan en anexos. La figura antes llamada C3 ahora es la figura 4. Pre y post se muestran juntos. La discusión incorpora construcción como contexto, mayores ganancias futuras como posibilidad y captura de valor con un placeholder para Álex.
+
+Las tablas se generan desde CSV con `Paper/revision_2026-10-06/construir_texto.py`; las dos figuras nuevas se regeneran con `27_figuras_paper.do`. No requieren volver a estimar. Solo se añadió un diagnóstico continuo CEM sobre los pesos existentes; conserva una interacción positiva pero reduce el contraste de proximidad. Su lectura es específica de la población ponderada del anexo D.
+
+La descripción de cambios está en `Paper/cambios_realizados_LAG.md` y el prompt actualizado de auditoría en `Paper/prompt_revision_Claude.md`. Pendiente: documentar las capas pre-2019 que Álex está rastreando y ampliar la discusión de captura de valor. No hay un estimador de apertura de frentes pendiente ni se pretende demostrar viabilidad fiscal con estos resultados.
+
+Las dos limpiezas autorizadas están documentadas en `Paper/archivo/2026-10-06/README.md` y `Paper/archivo/2026-10-07/README.md`. Los archivos archivados son recuperables con sus hashes. Se preservan bases, cachés útiles, pesos, `.ster` y resultados finales. No se hicieron commits ni pushes.
+
 ---
 
-## Estructura del Repositorio
+## Estructura del repositorio y pipeline histórico
 
 ```
 TIF_PLMB/
@@ -94,7 +112,7 @@ Corre el modelo DiD para buffers de 400m y 1200m usando una segunda definición 
 - **Entrada:** `predios_proc.dta`, `Lotes_catastrales_treat_robust.dbf`
 - **Salida:** `predios_robust.dta`, `DID_simple.docx` (con columnas 400m y 1200m)
 
-### Etapa 6 — Nueva Área de Influencia (especificación por defecto)
+### Etapa 6 — Nueva Área de Influencia (especificación histórica)
 
 **`6_nueva_ai.do`**
 Replica el pipeline completo (preparación, deflactación, DiD base, heterogeneidad por destino, estrato y tramo) usando la **nueva área de influencia** como grupo de tratamiento. A diferencia de un buffer de radio fijo, esta área está delimitada por avenidas y vías importantes cercanas al corredor del metro. Fue sugerida por entidades gubernamentales para dar soporte legal a la delimitación: respeta la geometría urbana (no corta manzanas a la mitad) y es la **definición por defecto para todos los análisis que siguen a este archivo**.
@@ -137,7 +155,7 @@ Estima efectos heterogéneos de tercer orden: `treat × destino económico × ac
 
 ---
 
-## Metodología
+## Metodología histórica de la consultoría
 
 ### Especificación Principal
 
@@ -190,9 +208,9 @@ Se excluyen de todas las estimaciones los predios con los siguientes destinos ec
 | 400m | `treatment_400` | Exploratoria (buffer estrecho) |
 | **800m** | **`treatment_800`** | **Especificación base** |
 | 1200m | `treatment_1200` | Ejercicio exploratorio (solicitado; no es la especificación principal) |
-| Nueva AI | `treatment` (archivo 6) | **Especificación por defecto para análisis posteriores** — ver nota abajo |
+| Nueva AI | `treatment` (archivo 6) | **Uso histórico en archivos 6–9; excluida del paper actual** |
 
-> **Nueva Área de Influencia:** Está delimitada por avenidas y vías importantes cercanas al corredor del metro, lo que la hace coincidir aproximadamente con el buffer de 800m pero respeta la geometría urbana real (manzanas y predios completos). Esta definición fue sugerida por entidades gubernamentales y le da soporte legal al perímetro de influencia, reduciendo la arbitrariedad de un radio fijo que puede cortar manzanas y predios a la mitad.
+> **Nueva Área de Influencia:** Parte aproximadamente del rango de 800–1200 m y ajusta el borde a manzanas y corredores principales, como la NQS y la Autopista. Esta definición fue sugerida por entidades gubernamentales para delimitar el perímetro de influencia. El ajuste evita cortar manzanas, pero depende de decisiones sobre la estructura urbana que pueden estar relacionadas con las tendencias previas del avalúo; por eso se contrasta con los buffers de radio fijo.
 
 ---
 
@@ -291,8 +309,12 @@ Los do-files deben correrse en este orden. Los archivos 3a y 3b pueden ejecutars
             ├── 3_analysis_did_heter.do
             ├── 4_analysis_cem.do
             └── 5_robustez.do
+                    └── paper/13_pretrends_buffers.do
 6_nueva_ai.do
     └── 7_centralidades.do
-            └── 9_heter_access.do
+            ├── 9_heter_access.do  (análisis de la consultoría con I_AccB)
+            └── paper/10_paper.do
+                    └── paper/12_comparar_postM.do
+paper/11_paper_ofertas.do  (comparación transversal con ofertas)
 8_robustez_control.do   (requiere predios_proc_ai2.dta de 6_nueva_ai.do)
 ```

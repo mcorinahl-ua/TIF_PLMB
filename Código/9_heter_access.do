@@ -1,3 +1,6 @@
+* Este archivo conserva I_AccB de la consultoría. No usar sus resultados
+* para el paper sin reestimar la heterogeneidad con A_std de 7_centralidades.do.
+
 /*==================================================
 Name:           9_heter_access.do
 
@@ -334,4 +337,3 @@ Notes:
    Corregir en 7_centralidades.do: cambiar substr(...,-2,.) por substr(...,-3,.) en c_manzana.
 
 Version Control:
-
