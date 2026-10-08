@@ -1,6 +1,6 @@
 *==================================================
 * 00_programas.do
-* Programas para la sensibilidad de Rambachan y Roth (honestdid).
+* Programas para la sensibilidad de honestdid.
 * Oct 2026. Los cargan 03_promedio.do y 04_gradiente.do.
 *==================================================
 

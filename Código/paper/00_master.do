@@ -6,7 +6,6 @@
 * Insumos: predios_robust.dta (sale de 5_robustez.do), treat_CEM.dta
 * (sale de 4_analysis_cem.do), base_bogota_270221.dta y las distancias
 * de ArcGIS en Datos/processed/distancias_paper.
-* La corrida completa toma varias horas; 04 es el módulo más pesado.
 *==================================================
 
 clear all

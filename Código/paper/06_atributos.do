@@ -2,7 +2,7 @@
 * 06_atributos.do
 * Heterogeneidad por destino económico y por estrato residencial, con el
 * atributo de cada registro en 2018, y sus tendencias previas.
-* Oct 2026. Correr desde 00_master.do. Requiere reghdfe.
+* Oct 2026. Requiere reghdfe.
 *
 * Referencias: residencial para destino y estrato 2 para estrato (el
 * estrato 1 tiene muy pocos barrios tratados y el 6 aún menos).
@@ -146,7 +146,7 @@ foreach tipo in destino estrato {
             ** Casi ningún lote tratado mezcla estratos y los términos de nivel
             ** quedan casi colineales. Se les resta la media del lote (no
             ** cambia la ecuación con FE de lote) y la categoría por año va
-            ** con dummies explícitas. Arreglo del 6 Oct 2026.
+            ** con dummies explícitas. .
             sort codigo_lote
             by codigo_lote: egen double filas_lote = total(n_registros)
             local niveles

@@ -1,13 +1,11 @@
 *==================================================
 * 02_muestra.do
 * Muestra común del paper y bases lote-año para estimar.
-* Oct 2026. Correr desde 00_master.do.
+* Oct 2026.
 *
 * Los regresores son constantes dentro de lote-año, así que se estima
 * sobre la media del log del avalúo por lote-año con [fw = número de
-* registros]. Da los mismos coeficientes y errores que el panel de
-* registros (verificado el 6 Oct 2026 contra el event study de 400 m).
-* El R2 de esas regresiones no es el del panel original.
+* registros].
 *==================================================
 
 clear all

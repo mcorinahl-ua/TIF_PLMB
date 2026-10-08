@@ -1,13 +1,12 @@
 *==================================================
 * 04_gradiente.do
-* Resultado central: cambio del gradiente de proximidad al trazado según
+* Cambio del gradiente de proximidad al trazado según
 * la accesibilidad estructural A, con los demás moderadores.
-* Oct 2026. Correr desde 00_master.do. Requiere reghdfe y honestdid.
+* Oct 2026. 
+* Requiere reghdfe y honestdid.
 *
 * Proximidad q = 1/(distancia + 1000). Los contrastes comparan 400 y 800 m.
-* Los moderadores de los modelos conjuntos se centran en su media por
-* registros; A queda en su escala de manzana (A = 0 es la media de manzanas).
-* Es el módulo más pesado: los modelos anuales tardan bastante.
+* A queda en su escala de manzana (A = 0 es la media de manzanas).
 *==================================================
 
 clear all

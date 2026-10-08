@@ -3,7 +3,7 @@
 * Comparación emparejada (CEM) de 800 m con los pesos de 2018 que guardó
 * 4_analysis_cem.do: DiD con y sin pesos, prueba previa, gradiente con
 * A, retención, concentración de pesos y balance.
-* Oct 2026. Correr desde 00_master.do. Requiere reghdfe.
+* Oct 2026. Requiere reghdfe.
 * No se vuelve a emparejar: los pesos vienen de treat_CEM.dta.
 *==================================================
 
@@ -16,8 +16,7 @@ log using "${dir_res}07_cem.log", text replace
 * Pesos guardados
 *---------
 
-** treatment en treat_CEM.dta es el buffer de 800 m (verificado el
-** 6 Oct 2026; treatment_ y treatment1 son otros buffers)
+** treatment en treat_CEM.dta es el buffer de 800 m 
 #d ;
 use codigo_lote codigo_construccion codigo_resto treatment cem_matched cem_weights
     using "${dir_proc}treat_CEM.dta", clear;
@@ -193,9 +192,9 @@ tempfile balance
 postfile `pb' str18 variable str12 muestra double media_control media_tratado
     diferencia_std using `balance', replace;
 #d cr
-local balance codigo_estrato area_terreno area_construida max_num_piso dest_residencial ///
+local covariables codigo_estrato area_terreno area_construida max_num_piso dest_residencial ///
     dest_comercial dest_industrial dest_urban_noedif dest_dotac dest_otros dist_cbd dist_tm n_constr_lote
-foreach v of local balance {
+foreach v of local covariables {
     quietly summarize `v' if treatment == 0
     local var0 = r(Var)
     quietly summarize `v' if treatment == 1

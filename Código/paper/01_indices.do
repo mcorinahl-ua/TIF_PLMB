@@ -2,8 +2,7 @@
 * 01_indices.do
 * Índices urbanos por manzana: distancia al trazado, accesibilidad
 * estructural (A_std), acceso económico, distancia al CBD y equipamientos.
-* Oct 2026. Viene de 7_centralidades.do (secciones 1 a 6), solo con lo
-* que usa el paper. Correr desde 00_master.do.
+* Oct 2026. 
 *==================================================
 
 clear all

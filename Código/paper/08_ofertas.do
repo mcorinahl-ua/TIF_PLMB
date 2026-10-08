@@ -1,7 +1,7 @@
 *==================================================
 * 08_ofertas.do
 * Ofertas de propiedad horizontal frente al avalúo catastral en 2025.
-* Oct 2026. Correr desde 00_master.do. Usa Ofertas_PH_CIB_2025.xlsx de Álex.
+* Oct 2026. Usa Ofertas_PH_CIB_2025.xlsx.
 *==================================================
 
 clear all

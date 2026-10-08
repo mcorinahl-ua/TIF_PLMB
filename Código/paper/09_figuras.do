@@ -1,7 +1,7 @@
 *==================================================
 * 09_figuras.do
-* Figuras del paper desde los CSV de resultados; no estima nada.
-* Oct 2026. Correr desde 00_master.do.
+* Figuras del paper desde los CSV de resultados
+* Oct 2026. 
 * Figura 2: event study promedio. 3: contraste según A. 4: interacción
 * anual. 5: sensibilidad de Rambachan y Roth. C1 y C2: terciles de A.
 *==================================================

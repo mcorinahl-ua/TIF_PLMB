@@ -2,7 +2,8 @@
 * 03_promedio.do
 * Efecto promedio por buffer (400, 800 y 1200 m): DiD, event study con
 * 2018 de referencia y sensibilidad de Rambachan y Roth.
-* Oct 2026. Correr desde 00_master.do. Requiere reghdfe y honestdid.
+* Oct 2026. 
+* Requiere reghdfe y honestdid.
 *==================================================
 
 clear all

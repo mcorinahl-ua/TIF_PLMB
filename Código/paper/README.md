@@ -20,6 +20,8 @@ Paquetes: `reghdfe`, `ftools`, `honestdid`.
 
 Insumos (en `Datos/processed` salvo que se diga otra cosa): `predios_robust.dta` (de `5_robustez.do`), `treat_CEM.dta` (de `4_analysis_cem.do`), `distancias_paper/` (ArcGIS) y `Alex/base_bogota_270221.dta` y `Alex/Ofertas_PH_CIB_2025.xlsx`.
 
+Los pesos CEM no se recalculan aquí. Salen de una corrida de `4_analysis_cem.do` (13 Feb 2026), que tarda alrededor de un día. No se encontró el log de esa corrida, pero la configuración actual de `4_analysis_cem.do` reproduce exactamente sus 1.191 estratos y sus pesos (verificado el 6 Oct 2026 con el módulo 19, en `Paper/diagnosticos`). La versión del commit `21fa624`, que incluía distancia a TransMilenio, no los reproduce.
+
 Especificación: post desde 2019, 2018 de referencia en los modelos anuales, FE de lote y año, errores agrupados por barrio, cada registro catastral pesa uno. Buffers de 400 y 800 m, 1200 m como sensibilidad. Proximidad continua 1/(d + 1000).
 
-Los programas 1–9 de la carpeta superior son de la consultoría. El código y los resultados anteriores del paper (módulos 10–27) están en `Paper/diagnosticos` de OneDrive y en la rama `respaldo-2026-10-07`.
+Los programas 1–9 de la carpeta superior son de la consultoría. El código y los resultados anteriores del paper (módulos 10–27) están en `Paper/diagnosticos` de OneDrive y en el tag `respaldo-2026-10-07` del repo.

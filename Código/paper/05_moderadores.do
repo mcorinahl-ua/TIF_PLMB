@@ -2,7 +2,8 @@
 * 05_moderadores.do
 * DiD por buffer moderado por A, acceso al empleo, distancia al CBD y
 * equipamientos, y tendencias previas por moderador.
-* Oct 2026. Correr desde 00_master.do. Requiere reghdfe.
+* Oct 2026. 
+* Requiere reghdfe.
 *
 * Versiones: original (treat x M), postM (agrega post x M, la principal),
 * deciles (post por decil de M en vez de lineal) y conjunto (los cuatro
