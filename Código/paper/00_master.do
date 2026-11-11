@@ -17,7 +17,7 @@ set more off
 
 ** Se usan "/" en las rutas para que Stata no confunda "\" con escapes
 global dir_0 "C:/Users/USUARIO/"
-global dir_tif "${dir_0}OneDrive - Universidad de los andes/RA Andes - TIF/"
+global dir_tif "${dir_0}Dropbox/RA Andes - TIF/"
 global dir_proc "${dir_tif}Datos/processed/"
 global dir_dist "${dir_proc}distancias_paper/"
 global dir_alex "${dir_tif}Alex/"

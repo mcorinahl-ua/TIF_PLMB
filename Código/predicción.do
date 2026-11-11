@@ -21,11 +21,11 @@ global dir_0 "C:\Users\USUARIO\\"
 //global dir_0 "C:\Users\proyecto\\"
 
 ** Data
-global dir_data "${dir_0}OneDrive - Universidad de los andes\RA Andes - TIF\Datos\\"
+global dir_data "${dir_0}Dropbox\RA Andes - TIF\Datos\\"
 global dir_raw "${dir_data}raw\\"
 global dir_proc "${dir_data}processed\\"
 global dir_outcomes "${dir_0}Documents\GitHub\TIF_PLMB\Datos\outcomes\\"
-global dir_dist "${dir_0}OneDrive - Universidad de los andes\Archivos de Alvaro Andres Casas Camargo - TIF - PLMB\1. Entregables\Entregable 2 - Modelación de escenarios fiscales y financieros\Memoria de Cálculo y Comentarios\Distancias\\"
+global dir_dist "${dir_0}Dropbox\RA Andes - TIF\Datos\processed\distancias_paper\\"
 
 /*==================================================
       Predicción — Avalúos ajustados 2025
@@ -160,7 +160,7 @@ label var avaluo_2026_premium  "Proyección 2026 - con premium: γ tendencia + �
 * Merge con código CHIP
 preserve 
 
-import delim "C:\Users\USUARIO\OneDrive - Universidad de los andes\Archivos de Alvaro Andres Casas Camargo - TIF - PLMB\2. Repositorio del Banco Mundial\INFORMACIÓN CATASTRAL Y PREDIAL\PREDIAL_CHIP\EMISION_2025.csv", clear
+import delim "C:\Users\USUARIO\Dropbox\RA Andes - TIF\Alvaro\2. Repositorio del Banco Mundial\INFORMACIÓN CATASTRAL Y PREDIAL\PREDIAL_CHIP\EMISION_2025.csv", clear
 
 tempfile chip
 save `chip', replace

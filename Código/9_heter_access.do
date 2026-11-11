@@ -55,7 +55,7 @@ global dir_0 "C:\Users\USUARIO\\"
 //global dir_0 "C:\Users\proyecto\\"
 
 ** Data
-global dir_data "${dir_0}OneDrive - Universidad de los andes\RA Andes - TIF\Datos\\"
+global dir_data "${dir_0}Dropbox\RA Andes - TIF\Datos\\"
 global dir_raw  "${dir_data}raw\\"
 global dir_proc "${dir_data}processed\\"
 global dir_outcomes "${dir_0}Documents\GitHub\TIF_PLMB\Datos\outcomes\\"

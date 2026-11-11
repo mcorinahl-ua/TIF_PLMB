@@ -22,11 +22,11 @@ args index_only dist_dir
 global dir_0 "C:\Users\USUARIO\"
 
 ** Data
-global dir_data "${dir_0}OneDrive - Universidad de los andes\RA Andes - TIF\Datos\"
+global dir_data "${dir_0}Dropbox\RA Andes - TIF\Datos\"
 global dir_raw "${dir_data}raw\"
 global dir_proc "${dir_data}processed\"
 global dir_outcomes "${dir_0}Documents\GitHub\TIF_PLMB\Datos\outcomes\"
-global dir_dist "${dir_0}OneDrive - Universidad de los andes\Archivos de Alvaro Andres Casas Camargo - TIF - PLMB\1. Entregables\Entregable 2 - Modelación de escenarios fiscales y financieros\Memoria de Cálculo y Comentarios\Distancias\"
+global dir_dist "${dir_0}Dropbox\RA Andes - TIF\Datos\processed\distancias_paper\"
 if "`dist_dir'" != "" global dir_dist "`dist_dir'\"
 
 
@@ -166,7 +166,7 @@ save `malla_arterial', replace
 ==================================================*/
 
 ** Importar los datos 
-use "${dir_0}OneDrive - Universidad de los andes\RA Andes - TIF\Alex\base_bogota_270221.dta", clear
+use "${dir_0}Dropbox\RA Andes - TIF\Alex\base_bogota_270221.dta", clear
 
 ** Merge archivos de distancia con base principal predios_proc
 local file_list malla_arterial tm cbd plmb
